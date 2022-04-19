@@ -1,7 +1,0 @@
-from requests import request
-
-
-import requests
-url = r'my/text is here'
-r = requests.get(url)
-print(r.status_coode)
