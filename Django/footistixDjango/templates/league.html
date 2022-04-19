@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>League</title>
+    <link rel="stylesheet" href="../site_media/css/player_main.css" />
+    <link rel="stylesheet" href="../site_media/css/bootstrap/bootstrap.min.css" />
+    <link rel="stylesheet" href="../site_media/css/FormStyles.css" />
+</head>
+<body>
+    <section class="header">
+        <div class="header-div">
+            <div class="logo">
+                <img src="../site_media/logo_text.png" alt="" width="130px" height="20px">
+            </div>
+            <div class="head-menu">
+                <a href="">Compare</a>
+                <a href="">Clubs</a>
+                <a href="">Players</a>
+                <a href="">About us</a>
+                <a href="">Contact</a>
+                <a href="">FAQ</a>
+            </div>
+            <div class="search-bar">
+                <form autocomplete="off" >
+                    <div class="search-input">
+                      <input type="text" id = "playerSearchInput" required placeholder="SEARCH">
+                      <div class="autocom-box">
+                        <i class="fa-regular fa-magnifying-glass"></i>
+                      </div>
+                    </div>
+                  </form>
+            </div>
+            <div class="devider"></div>
+        {% if user.is_authenticated %}
+            <div class="user">{{user.username}}</div> <i class="fa-regular fa-user"></i>
+            <!-- <form action="/profile">
+                <button type="submit" >Your profile <span class="glyphicon glyphicon-user"></span></button>
+              </form> -->
+            
+            <form method="post">{% csrf_token %}<input type="text" name="logout" value="logout" hidden><button class="logoutBtn" type="submit">LogOut</button></form>
+        
+        {% else%}
+            <div class="loginArea">
+              <button class="loginBtn">Log in</button>
+              <button class="signUpBtn">Sign Up</button>
+            </div>
+        {%endif%}
+          </div>
+        </div>
+      <div class="center">
+        <div class="container loginHidden">
+          <label for="" class="close-btn fas fa-times"></label>
+          <div class="text">Login Form</div>
+          <form method="post" action="/login/">{% csrf_token %}
+            <div class="data">
+              <label>Username</label>
+              <input type="text" name="username" required />
+            </div>
+            <div class="data">
+              <label>Password</label>
+              <input type="password" name="password" required/>
+            </div>
+            <div class="forgot-password"><a href="#">Forgot Password?</a></div>
+            <div class="btn">
+              <div class="inner"></div>
+              <button type=submit>Login</button>
+            </div>
+            <div class="signup-link">Not a member? <a class="signUpBtn"href="#">Sign up</a></div>
+          </form>
+  
+        </div>
+        </div>
+        <div class="center">
+            <div class="container loginHidden">
+              <label for="" class="close-btn fas fa-times"></label>
+              <div class="text">Login Form</div>
+              <form method="post" action="/login/">{% csrf_token %}
+                <div class="data">
+                  <label>Username</label>
+                  <input type="text" name="username" required />
+                </div>
+                <div class="data">
+                  <label>Password</label>
+                  <input type="password" name="password" required/>
+                </div>
+                <div class="forgot-password"><a href="#">Forgot Password?</a></div>
+                <div class="btn">
+                  <div class="inner"></div>
+                  <button type=submit>Login</button>
+                </div>
+                <div class="signup-link">Not a member? <a class="signUpBtn"href="#">Sign up</a></div>
+              </form>
+      
+            </div>
+            </div>
+            
+            <div class="center">
+              <div class="container signUpHidden">
+                <label for="" class="close-btn fas fa-times"></label>
+                <div class="text">Create Account</div>
+                
+                <form method="post" action="/register/">{% csrf_token %}
+                  
+                  <div class="data ">
+                    <label>Username</label>
+                    <input class="usernameInput" type="text" name="username" placeholder="Username"required />
+                  </div>
+                  <div class="data">
+                    <label>Email</label>
+                    <input class="emailInput" type="email" name="email" required placeholder="Email" />
+                    
+                  </div>
+                  <div class="data">
+                    <label>Password</label>
+                    <input class="passwordInput" type="password" name="password1" placeholder="Password"required/>
+                  </div>
+                  <div class="data">
+                    <label>Repeat Password</label>
+                    <input class="passwordRepeatInput" type="password" name="password2" placeholder="Repeat Password"required/>
+                  </div>
+                  <div class="btn">
+                    <div class="inner"></div>
+                    <button class="initialiseSignUp"type=submit>Sign Up</button>
+                  </div>
+                  <div class="login-link">Already a member?<a class="loginBtn" href="#">Login</a></div>
+                </form>
+      
+              </div>
+              </div>
+    </section>
+
+    <section class="body">
+        <div class="top-body">
+          <div class="image">
+            <img src="{{league.logo_path}}" alt="" class="player-image">
+          </div>
+            
+            <div class="player-name-team">
+              <h3 class="player-name">{{league.name}}</h3>
+              <h3 class="team-name">{{league_db.tier}}</h3>
+            </div>
+            
+            <div class="player-menu">
+                <a href="">Rating</a>
+                <a href="">Performance</a>
+                <a href="">Results</a>
+            </div>
+        </div>
+        <div class="right-body">
+          <div class="rb-content">
+            <table class="player-details">
+              <tr>
+                  <td>Country</td>
+                  <td>{{league.country.data.name}}<span><img src="{{league.country.data.image_path}}" alt=""  width="50" height="30" style="border: 1px solid #111;"></span></td>
+              </tr>
+              <tr>
+                  <td>Number of teams</td>
+                  <td>{{league.season.data.stats.data.number_of_clubs}}</td>
+              </tr>
+              <tr>
+                  <td>Number of matches</td>
+                  <td>{{league.season.data.stats.data.number_of_matches}}</td>
+              </tr>
+              <tr>
+                  <td>Number of player matches</td>
+                  <td>{{league.season.data.stats.data.number_of_matches_played}}</td>
+              </tr>
+              <tr>
+                  <td>Goals sccorred</td>
+                  <td>{{league.season.data.stats.data.number_of_goals}}</td>
+              </tr>
+              <tr>
+                  <td>Average goal_per_match</td>
+                  <td>{{league.season.data.stats.data.avg_goals_per_match}}</td>
+              </tr>
+             
+          </table>
+          
+        </div>
+      </div>
+      <div style="margin-left: 25%; padding:20px; width: 40%;">
+          <table style="text-align: center;">
+              <tr>
+                  <th colspan="4">Upcoming five matches</th>
+              </tr>
+              <tr>
+                <th>Home</th>
+                <th>Visitor</th>
+                <th>Date Time</th>
+                <th>Time Zone</th>
+              </tr>
+              
+              {% for match in nextGames%}
+                <tr>
+                  <td>{{match.localTeam}}</span></td>
+                  <td>{{match.visitorTeam}}</td>
+                  <td>{{match.time}}</td>
+                  <td>{{match.timezone}}</td>
+                </tr>
+              {%endfor%}
+          </table>
+          <br>
+
+          <table style="text-align: center;">
+              <tr>
+                <th colspan="10">Standings</th>
+              </tr>
+              <tr>
+                <th>Position</th>
+                <th>Team</th>
+                <th>Games played</th>
+                <th>Won</th>
+                <th>Draw</th>
+                <th>Lost</th>
+                <th>Goals scored</th>
+                <th>Goals against</th>
+                <th>Goal difference</th>
+                <th>Recent form</th>
+            </tr>
+            {%for standing in standings%}
+            <tr>
+                <td>{{standing.position}}</td>
+                <td>{{standing.team_name}}</td>
+                <td>{{standing.overall.games_played}}</td>
+                <td>{{standing.overall.won}}</td>
+                <td>{{standing.overall.draw}}</td>
+                <td>{{standing.overall.lost}}</td>
+                <td>{{standing.overall.goals_scored}}</td>
+                <td>{{standing.overall.goals_against}}</td>
+                <td>{{standing.total.goal_difference}}</td>
+                <td>{{standing.recent_form}}</td>
+            </tr>
+          {%endfor%}
+          </table>
+          
+      </div>    
+      <div style="margin-left: 25%; padding:20px;">
+        Most cleansheets:
+        {{league.season.data.stats.data.goalkeeper_most_cleansheets_number}}
+        <br>
+        Top scorer:
+        {{league.season.data.stats.data.topscorer.data.display_name}}
+      </div>
+      </section>
+
+<script>
+
+  fetch(url)
+  .then(response => response.json())
+  .catch(err => console.log(err))
+
+
+
+
+</script>
+</body>
+</html>
