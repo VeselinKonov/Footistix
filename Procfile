@@ -1,0 +1,1 @@
+web: gunicorn footisitxDjango.wsgi --log-file
