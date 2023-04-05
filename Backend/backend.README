@@ -1,0 +1,10 @@
+## Endpoint documentation 
+
+Documentation
+
+**/auth/token/login/** - login - return token (POST)
+
+**/auth/token/logout/** - logout
+
+**/getTeam/<name>** - get team by name (need auth)
+
